@@ -32,12 +32,8 @@ alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
 alias cmakeopt="$cmake -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
 
-# use vimdiff for svn/git diffs so they don't suck
-alias svndiff='svn diff --diff-cmd ~/local/bin/svnvimdiff'
+# use vimdiff for git diffs so they don't suck
 alias gitdiff='git difftool --tool=vimdiff'
-
-# common macros
-export SVN="https://svn.tokutek.com/tokudb"
 
 # convenience aliases
 alias vi="vim"
@@ -63,17 +59,13 @@ alias cp="cp -i"
 tokunyc="108.27.202.11"
 alias nyc="ssh -C -p 22123 esmet@$tokunyc"
 tokulex="tokulex.tokutek.com"
-alias coyote="ssh -p 22111 esmet@$tokulex"
-alias roadrunner="ssh -p 22112 esmet@$tokulex"
 alias lex1="ssh -p 22114 esmet@$tokulex"
 alias lex2="ssh -p 22115 esmet@$tokulex"
 alias pointy="ssh -p 22148 esmet@$tokulex"
 alias mork="ssh -p 22150 esmet@$tokulex"
 alias mindy="ssh -p 22151 esmet@$tokulex"
-alias phoenix="ssh -p 22153 esmet@$tokulex"
 alias buk="ssh -p 2202 esmet@buk.fizzfaldt.org"
 alias munchkin="ssh -p 22150 esmet@munchkin.leifwalsh.com"
-alias mac="ssh esmet@192.168.0.113"
 
 # i'm used to this now
 unalias reset &>/dev/null
@@ -147,8 +139,13 @@ function perf_client_thread {
 }
 
 function dbh {
-    p="$HOME/svn/toku/tokudb/build/buildheader/db.h"
-    test -e "$p" && vim $p
+    p1="$HOME/git/tokutek/ft-index/dbg/buildheader/db.h"
+    p2="$HOME/git/tokutek/ft-index/build/buildheader/db.h"
+    if [ -e $p1 ] ; then
+        vim $p1
+    elif [ -e $p2 ] ; then
+        vim $p2
+    fi
 }
 
 function smoke {
