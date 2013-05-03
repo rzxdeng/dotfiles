@@ -24,7 +24,7 @@ alias grep="grep --color=auto"
 
 # cmake aliases
 if [ $(hostname) == 'celery' ] ; then
-    cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PERFIX=../release"
+    cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 elif [ $unamestr == 'linux' ] ; then
     cmake="CC=\"gcc47\" CXX=\"g++47\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 else
@@ -137,7 +137,7 @@ function maketags {
 }
 
 function perf_client_thread {
-    gdb -p $(pgrep perf_) -ex "thr 3" -ex "thr" -batch | grep "Current thread is 3" | awk '{print $8}' | awk -F ')' '{print $1}'
+    gdb -p $(pgrep perf_) -ex "thr 3" -ex "thr" -batch 2>/dev/null | grep "Current thread is 3" | awk '{print $8}' | awk -F ')' '{print $1}'
 }
 
 function dbh {
@@ -155,6 +155,13 @@ function smoke {
     if [ -e $smoke ] ; then
         d="smokedata"
         mkdir -p $d
-        PYTHONPATH=/usr/lib64/python2.4/site-packages/ python2.6 $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
+        if command -v python2 &>/dev/null ; then
+            python="python2"
+        elif command -v python2.6 &>/dev/null ; then
+            python="python2.6"
+        else
+            python="python"
+        fi
+        PYTHONPATH=/usr/lib64/python2.4/site-packages/ $python $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
     fi
 }
