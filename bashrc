@@ -23,7 +23,9 @@ fi
 alias grep="grep --color=auto"
 
 # cmake aliases
-if [ $unamestr == 'linux' ] ; then
+if [ $(hostname) == 'celery' ] ; then
+    cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
+elif [ $unamestr == 'linux' ] ; then
     cmake="CC=\"gcc47\" CXX=\"g++47\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 else
     cmake="CC=\"cc\" CXX=\"c++\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
@@ -41,9 +43,13 @@ alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
 alias jmux2="tmux -S /tmp/john.tmux2"
 alias jm="./mongo --port 29000"
+alias jm-repl1="./mongo --port 28000"
+alias jm-repl2="./mongo --port 28001"
 alias jm-vanilla="./mongo --port 29001"
-alias jmd="mkdir -p data && gdb -ex r --args ./mongod --gdb --dbpath data --port 29000"
-alias jmd-vanilla="mkdir -p data && gdb -ex r --args ./mongod --dbpath data --port 29001"
+alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath data --port 29000"
+alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --gdb --dbpath repldata1 --port 28000"
+alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --gdb --dbpath repldata2 --port 28001"
+alias jmd-vanilla="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --dbpath data --port 29001"
 alias jsql="mysql --sigint-ignore -u root --socket=/tmp/john.mysql"
 alias jsqld="gdb ex r --args $HOME/mysql/bin/mysqld --gdb --socket=/tmp/john.mysql --port=53421"
 alias io="iostat -xk 1"
@@ -135,7 +141,7 @@ function maketags {
 }
 
 function perf_client_thread {
-    gdb -p $(pgrep perf_) -ex "thr 3" -ex "thr" -batch | grep "Current thread is 3" | awk '{print $8}' | awk -F ')' '{print $1}'
+    gdb -p $(pgrep perf_) -ex "thr 3" -ex "thr" -batch 2>/dev/null | grep "Current thread is 3" | awk '{print $8}' | awk -F ')' '{print $1}'
 }
 
 function dbh {
@@ -153,6 +159,13 @@ function smoke {
     if [ -e $smoke ] ; then
         d="smokedata"
         mkdir -p $d
-        PYTHONPATH=/usr/lib64/python2.4/site-packages/ python2.6 $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
+        if command -v python2 &>/dev/null ; then
+            python="python2"
+        elif command -v python2.6 &>/dev/null ; then
+            python="python2.6"
+        else
+            python="python"
+        fi
+        PYTHONPATH=/usr/lib64/python2.4/site-packages/ $python $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
     fi
 }
