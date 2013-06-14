@@ -41,7 +41,7 @@ alias gitdiff='git difftool --tool=vimdiff'
 alias vi="vim"
 alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
-alias jmux2="tmux -S /tmp/john.tmux2"
+alias jmux2="tmux -S /tmp/john2.tmux"
 alias jm="./mongo --port 29000"
 alias jm-repl1="./mongo --port 28000"
 alias jm-repl2="./mongo --port 28001"
