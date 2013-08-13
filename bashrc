@@ -4,8 +4,8 @@ PS1="[\u@\h \W] \$ "
 # vi bindings are great everywhere except the command line
 set -o emacs
 
-# disable screen saving on celery
-[ $(hostname) == "celery" ] && xset s off
+# disable screen saving on blue
+[ $(hostname) == "blue" ] && xset s off &>/dev/null
 
 # this bundle of joy is for portable LS colors.
 # I like yellow dictories because bold blue is
