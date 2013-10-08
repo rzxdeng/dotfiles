@@ -43,6 +43,7 @@ alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
 alias jmux2="tmux -S /tmp/john2.tmux"
 alias jm="./mongo --port 29000"
+alias jms="./mongostat --port 29000"
 alias jm-repl1="./mongo --port 28000"
 alias jm-repl2="./mongo --port 28001"
 alias jm-vanilla="./mongo --port 29001"
@@ -105,6 +106,7 @@ pathmunge "/usr/local/sbin"
 pathmunge "$HOME/local/bin" 
 pathmunge "/usr/local/gcc-4.7/bin" 
 pathmunge "/usr/local/gdb-7.5.1/bin"
+pathmunge "/usr/local/gdb-7.5/bin"
 pathmunge "/usr/local/binutils-2.22/bin"
 
 export LD_LIBRARY_PATH="$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
@@ -159,7 +161,9 @@ function smoke {
     if [ -e $smoke ] ; then
         d="smokedata"
         mkdir -p $d
-        if command -v python2 &>/dev/null ; then
+        if command -v python2.7 &>/dev/null ; then
+            python="python2.7"
+        elif command -v python2 &>/dev/null ; then
             python="python2"
         elif command -v python2.6 &>/dev/null ; then
             python="python2.6"
