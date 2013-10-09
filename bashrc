@@ -35,7 +35,7 @@ else
 fi
 alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
-alias cmakeopt="$cmake -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
+alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
 
 # use vimdiff for git diffs so they don't suck
 alias gitdiff='git difftool --tool=vimdiff'
@@ -50,12 +50,12 @@ alias jms="./mongostat --port 29000"
 alias jm-repl1="./mongo --port 28000"
 alias jm-repl2="./mongo --port 28001"
 alias jm-vanilla="./mongo --port 29001"
-alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath data --port 29000"
-alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --gdb --dbpath repldata1 --port 28000"
-alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --gdb --dbpath repldata2 --port 28001"
+alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --debug --dbpath data --port 29000"
+alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --debug --dbpath repldata1 --port 28000"
+alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --debug --dbpath repldata2 --port 28001"
 alias jmd-vanilla="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --dbpath data --port 29001"
 alias jsql="mysql --sigint-ignore -u root --socket=/tmp/john.mysql"
-alias jsqld="gdb ex r --args $HOME/mysql/bin/mysqld --gdb --socket=/tmp/john.mysql --port=53421"
+alias jsqld="gdb -ex r --args bin/mysqld --gdb --socket=/tmp/john.mysql --port=53421"
 alias io="iostat -xk 1"
 
 # interactive for safety
@@ -65,7 +65,7 @@ alias ln="ln -i"
 alias cp="cp -i"
 
 # tokutek new york + lexington
-tokunyc="108.27.202.11"
+tokunyc="184.75.127.194"
 alias nyc="ssh -C -p 22123 esmet@$tokunyc"
 alias celery="ssh -C -p 22115 esmet@$tokunyc"
 tokulex="tokulex.tokutek.com"
