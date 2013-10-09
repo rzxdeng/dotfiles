@@ -65,9 +65,9 @@ alias ln="ln -i"
 alias cp="cp -i"
 
 # tokutek new york + lexington
-tokunyc="184.75.127.194"
-alias nyc="ssh -C -p 22123 esmet@$tokunyc"
-alias celery="ssh -C -p 22115 esmet@$tokunyc"
+tokunyc="tokunyc.tokutek.com"
+alias nyc="ssh -C -p 22102 esmet@$tokunyc"
+alias celery="ssh -C -p 22101 esmet@$tokunyc"
 tokulex="tokulex.tokutek.com"
 alias lex1="ssh -p 22114 esmet@$tokulex"
 alias lex2="ssh -p 22115 esmet@$tokulex"
