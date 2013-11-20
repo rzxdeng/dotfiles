@@ -50,6 +50,7 @@ alias vi="vim"
 alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
 alias jmux2="tmux -S /tmp/john2.tmux"
+alias m="./mongo --nodb"
 alias jm="./mongo --port 29000"
 alias jms="./mongostat --port 29000"
 alias jm-repl1="./mongo --port 28000"
@@ -180,4 +181,8 @@ function smoke {
         fi
         PYTHONPATH=/usr/lib64/python2.4/site-packages/ $python $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
     fi
+}
+
+function tags {
+    ctags */*.{cpp,h} *.{cpp,h}
 }
