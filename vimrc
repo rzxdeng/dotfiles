@@ -155,7 +155,7 @@ function s:svnBlame()
     " if svn st gives a warning, assume git, else svn.
     let $r = system("svn st")
     if $r =~ "warning"
-        aboveleft 40vnew 
+        aboveleft 50vnew 
         setlocal nomodified buftype=nofile nowrap winwidth=2 
         %!git blame -s -c -w "#"
     else

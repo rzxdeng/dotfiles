@@ -37,6 +37,11 @@ alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
 alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
 
+# distcc
+if [ $(hostname) == "celery" ] ; then
+    export DISTCC_HOSTS="localhost/4 192.168.1.102/4"
+fi
+
 # use vimdiff for git diffs so they don't suck
 alias gitdiff='git difftool --tool=vimdiff'
 
@@ -45,14 +50,15 @@ alias vi="vim"
 alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
 alias jmux2="tmux -S /tmp/john2.tmux"
+alias m="./mongo --nodb"
 alias jm="./mongo --port 29000"
 alias jms="./mongostat --port 29000"
 alias jm-repl1="./mongo --port 28000"
 alias jm-repl2="./mongo --port 28001"
 alias jm-vanilla="./mongo --port 29001"
-alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --debug --dbpath data --port 29000"
-alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --debug --dbpath repldata1 --port 28000"
-alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --debug --dbpath repldata2 --port 28001"
+alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath data --port 29000"
+alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --expireOplogDays 0 --expireOplogHours 1 --gdb --dbpath repldata1 --port 28000"
+alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --expireOplogDays 0 --expireOplogHours 1 --gdb --dbpath repldata2 --port 28001"
 alias jmd-vanilla="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --dbpath data --port 29001"
 alias jsql="mysql --sigint-ignore -u root --socket=/tmp/john.mysql"
 alias jsqld="gdb -ex r --args bin/mysqld --gdb --socket=/tmp/john.mysql --port=53421"
@@ -183,4 +189,8 @@ function lex1tunnel {
         echo $cmd
         $cmd
     done
+}
+
+function tags {
+    ctags */*.{cpp,h} *.{cpp,h}
 }
