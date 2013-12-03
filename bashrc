@@ -176,3 +176,11 @@ function smoke {
         PYTHONPATH=/usr/lib64/python2.4/site-packages/ $python $smoke --continue-on-failure --smoke-db-prefix $d --quiet $@
     fi
 }
+
+function lex1tunnel {
+    while true; do
+        cmd='ssh -N -L 8010:localhost:8010 -L 8020:localhost:8020 -L 8080:localhost:8080 -p22114 esmet@tokulex.tokutek.com'
+        echo $cmd
+        $cmd
+    done
+}
