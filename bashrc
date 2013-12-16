@@ -45,23 +45,38 @@ fi
 # use vimdiff for git diffs so they don't suck
 alias gitdiff='git difftool --tool=vimdiff'
 
-# convenience aliases
 alias vi="vim"
 alias emacs="emacs -nw"
+# tmux
 alias jmux="tmux -S /tmp/john.tmux"
 alias jmux2="tmux -S /tmp/john2.tmux"
+# stand-alone tokumx
 alias m="./mongo --nodb"
 alias jm="./mongo --port 29000"
+alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath data --port 29000"
 alias jms="./mongostat --port 29000"
+# replicated tokumx
 alias jm-repl1="./mongo --port 28000"
 alias jm-repl2="./mongo --port 28001"
-alias jm-vanilla="./mongo --port 29001"
-alias jmd="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath data --port 29000"
 alias jmd-repl1="mkdir -p repldata1 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --expireOplogDays 0 --expireOplogHours 1 --gdb --dbpath repldata1 --port 28000"
 alias jmd-repl2="mkdir -p repldata2 && gdb -ex r --args ./mongod --nohttpinterface --replSet johnrs --expireOplogDays 0 --expireOplogHours 1 --gdb --dbpath repldata2 --port 28001"
+# sharded tokumx
+alias jm-sh="./mongo --port 15001"
+alias jm-shard1="./mongo --port 15002"
+alias jm-shard2="./mongo --port 15003"
+alias jmd-config="mkdir -p configsvrdata && gdb -ex r --args ./mongod --configsvr --nohttpinterface --gdb --dbpath configsvrdata --port 15000"
+alias jmongos="gdb -ex r --args ./mongos --configdb localhost:15000 --port 15001"
+alias jmd-shard1="mkdir -p sharddata1 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata1 --port 15002"
+alias jmd-shard2="mkdir -p sharddata2 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata2 --port 15003"
+alias jms-sharded="./mongostat --discover --port 15001"
+# vanilla mongo
+alias jm-vanilla="./mongo --port 29001"
 alias jmd-vanilla="mkdir -p data && gdb -ex r --args ./mongod --nohttpinterface --dbpath data --port 29001"
+# mysql
 alias jsql="mysql --sigint-ignore -u root --socket=/tmp/john.mysql"
 alias jsqld="gdb -ex r --args bin/mysqld --gdb --socket=/tmp/john.mysql --port=53421"
+
+# convenience
 alias io="iostat -xk 1"
 
 # interactive for safety
