@@ -176,3 +176,16 @@ command Blame call s:svnBlame()
 if getcwd() =~ "src/mongo/db"
     setlocal makeprg=scons
 endif
+
+" so vim stops complaining when opening a file that another vim has opened.
+" I know vim, just go read only. Obviously.
+func CheckSwap()
+  swapname
+  if v:statusmsg =~ '\.sw[^p]$'
+    set ro
+  endif
+endfunc
+if &swf
+  set shm+=A
+  au BufReadPre * call CheckSwap()
+endi

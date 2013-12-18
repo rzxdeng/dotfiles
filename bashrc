@@ -171,8 +171,8 @@ function perf_client_thread {
 }
 
 function dbh {
-    p1="$HOME/git/tokutek/ft-index/dbg/buildheader/db.h"
-    p2="$HOME/git/tokutek/ft-index/build/buildheader/db.h"
+    p1="$HOME/git/tokutek/ft-index/build/buildheader/db.h"
+    p2="$HOME/git/tokutek/ft-index/dbg/buildheader/db.h"
     if [ -e $p1 ] ; then
         vim $p1
     elif [ -e $p2 ] ; then
