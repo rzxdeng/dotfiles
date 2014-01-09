@@ -38,8 +38,8 @@ alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
 alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
 
 # distcc
-if [ $(hostname) == 'celery' ] || [ $(hostname) == 'nyc1' ] ; then
-    export DISTCC_HOSTS="192.168.1.101/4 192.168.1.102/4"
+if [ $(hostname) == 'celery' ] ; then
+    export DISTCC_HOSTS="localhost/4 192.168.1.102/4"
 fi
 
 # use vimdiff for git diffs so they don't suck
