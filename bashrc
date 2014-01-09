@@ -26,7 +26,7 @@ fi
 alias grep="grep --color=auto"
 
 # cmake aliases
-if [ $(hostname) == 'celery' ] ; then
+if [ $(hostname) == 'celery' ] || [ $(hostname) == 'nyc1' ] ; then
     cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 elif [ $unamestr == 'linux' ] ; then
     cmake="CC=\"gcc47\" CXX=\"g++47\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
