@@ -11,6 +11,7 @@ set incsearch
 set ignorecase
 set smartcase
 set autoindent
+set hlsearch
 filetype indent on
 filetype plugin on
 colorscheme desert
@@ -171,11 +172,6 @@ function s:svnBlame()
 endfunction 
 map gb :call <SID>svnBlame()<CR> 
 command Blame call s:svnBlame() 
-
-" use scons when working with MongoDB
-if getcwd() =~ "src/mongo/db"
-    setlocal makeprg=scons
-endif
 
 " so vim stops complaining when opening a file that another vim has opened.
 " I know vim, just go read only. Obviously.
