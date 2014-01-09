@@ -27,11 +27,11 @@ alias grep="grep --color=auto"
 
 # cmake aliases
 if [ $(hostname) == 'celery' ] || [ $(hostname) == 'nyc1' ] ; then
-    cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
+    cmake="CC=gcc CXX=g++ cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 elif [ $unamestr == 'linux' ] ; then
-    cmake="CC=\"gcc47\" CXX=\"g++47\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
+    cmake="CC=gcc47 CXX=g++47 cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 else
-    cmake="CC=\"cc\" CXX=\"c++\" cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
+    cmake="CC=cc CXX=c++ cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 fi
 alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
