@@ -212,3 +212,12 @@ function lex1tunnel {
 function tags {
     ctags */*.{cpp,h} *.{cpp,h}
 }
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+function gbin { 
+    echo branch \($1\) has these commits and \($(parse_git_branch)\) does not 
+    git log ..$1 --no-merges --format='%h | Author:%an | Date:%ad | %s' --date=local
+}
