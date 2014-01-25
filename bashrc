@@ -66,6 +66,8 @@ alias jmd-shard3="mkdir -p sharddata3 && gdb -ex r --args ./mongod --nohttpinter
 alias jmd-shard4="mkdir -p sharddata4 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata4 --port 15005"
 alias jmd-shard5="mkdir -p sharddata5 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata5 --port 15006"
 alias jmd-shard6="mkdir -p sharddata6 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata6 --port 15007"
+alias jmd-shard7="mkdir -p sharddata7 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata7 --port 15008"
+alias jmd-shard8="mkdir -p sharddata8 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata8 --port 15009"
 alias jms-sharded="./mongostat --discover --port 15001"
 # vanilla mongo
 alias jm-vanilla="./mongo --port 29001"
