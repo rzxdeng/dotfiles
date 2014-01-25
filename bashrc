@@ -26,13 +26,7 @@ fi
 alias grep="grep --color=auto"
 
 # cmake aliases
-if [ $(hostname) == 'celery' ] || [ $(hostname) == 'nyc1' ] ; then
-    cmake="CC=gcc CXX=g++ cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
-elif [ $unamestr == 'linux' ] ; then
-    cmake="CC=gcc47 CXX=g++47 cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
-else
-    cmake="CC=cc CXX=c++ cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
-fi
+cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
 alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
 alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
@@ -68,6 +62,10 @@ alias jmd-config="mkdir -p configsvrdata && gdb -ex r --args ./mongod --configsv
 alias jmongos="gdb -ex r --args ./mongos --configdb localhost:15000 --port 15001"
 alias jmd-shard1="mkdir -p sharddata1 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata1 --port 15002"
 alias jmd-shard2="mkdir -p sharddata2 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata2 --port 15003"
+alias jmd-shard3="mkdir -p sharddata3 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata3 --port 15004"
+alias jmd-shard4="mkdir -p sharddata4 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata4 --port 15005"
+alias jmd-shard5="mkdir -p sharddata5 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata5 --port 15006"
+alias jmd-shard6="mkdir -p sharddata6 && gdb -ex r --args ./mongod --nohttpinterface --gdb --dbpath sharddata6 --port 15007"
 alias jms-sharded="./mongostat --discover --port 15001"
 # vanilla mongo
 alias jm-vanilla="./mongo --port 29001"
