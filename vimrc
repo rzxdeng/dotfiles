@@ -67,107 +67,14 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 set wildmenu
 set wildmode=list:longest
 
-" Jeff's cscope settings
-if has("cscope")
-        set csprg=/usr/bin/cscope
-        " change this to 1 to search ctags DBs first
-        set csto=0
-        set cst
-        set nocsverb
-        " add any database in current directory, plus
-        " some other places of interest
-        if filereadable("cscope.out")
-            cs add cscope.out
-        endif
-        if filereadable("../cscope.out")
-            cs add ../cscope.out ../
-        endif
-        if filereadable("../../cscope.out")
-            cs add ../../cscope.out ../../
-        endif
-        if filereadable("../../../cscope.out")
-            cs add ../../../cscope.out ../../..
-        endif
-        if filereadable("build/cscope.out")
-            cs add build/cscope.out build/
-        endif
-        if filereadable("../build/cscope.out")
-            cs add ../build/cscope.out ../build/
-        endif
-        if filereadable("../../build/cscope.out")
-            cs add ../../build/cscope.out ../../build/
-        endif
-        if $CSCOPE_DB != ""
-            cs add $CSCOPE_DB
-        endif
-        set csverb
+" fugitive mappings
+map <Leader>b :Gblame<Return>
+map <Leader>c :Gcommit<Return>
+map <Leader>d :Gdiff<Return>
 
-        " Using 'CTRL-\' then a search type makes the vim window
-        " "shell-out", with search results displayed on the bottom
-
-        " my variant's to jeff's cscope shortcuts. I like
-        " leader + letter commands, and these are the most common.
-        nmap <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-        nmap <Leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-        nmap <Leader>f :cs find s <C-R>=expand("<cword>")<CR><CR>
-
-        nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-        nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-        nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-        " Using 'CTRL-spacebar' then a search type makes the vim window
-        " split horizontally, with search result displayed in
-        " the new window.
-
-        nmap <C-[>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-        nmap <C-[>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-        nmap <C-[>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-        " Hitting CTRL-space *twice* before the search type does a vertical
-        " split instead of a horizontal one
-
-        nmap <C-[><C-[>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[><C-[>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[><C-[>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[><C-[>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[><C-[>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-        nmap <C-[><C-[>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-        nmap <C-[><C-[>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-endif
-
-" Show in a new window the Subversion blame annotation for the current file. 
-function s:svnBlame() 
-    let line = line(".") 
-    setlocal nowrap 
-    " if svn st gives a warning, assume git, else svn.
-    let $r = system("svn st")
-    if $r =~ "warning"
-        aboveleft 50vnew 
-        setlocal nomodified buftype=nofile nowrap winwidth=2 
-        %!git blame -s -c -w "#"
-    else
-        aboveleft 23vnew 
-        setlocal nomodified buftype=nofile nowrap winwidth=2 
-        %!svn blame -x-w "#"
-    endif
-    exec "normal " . line . "G" 
-    setlocal scrollbind 
-    wincmd p 
-    setlocal scrollbind 
-    syncbind 
-endfunction 
-map gb :call <SID>svnBlame()<CR> 
-command Blame call s:svnBlame() 
+" ag mappings
+map <Leader>f :Ag <C-r><C-w><Return>
+map <Leader>g :Ag 
 
 " so vim stops complaining when opening a file that another vim has opened.
 " I know vim, just go read only. Obviously.
