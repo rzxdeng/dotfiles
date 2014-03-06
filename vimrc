@@ -1,3 +1,6 @@
+execute pathogen#infect()
+Helptags
+
 set softtabstop=4
 set expandtab
 set number
@@ -32,14 +35,10 @@ autocmd FileType hpp syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
 " .wiki extention pages screw up and put <feff> byte-order without this
 au BufWritePre * setlocal nobomb
 
-" this is a hack to get svnvimdiff to highlight the tmp
-" files as c files.
-autocmd BufNewFile,BufRead *.tmp set ft=c
-
 " it's an addiction now
 imap jj <Esc>
 
-" hopefully this is useful. do \w to save and go back to insert 
+" bread and butter
 imap <Leader>w <Esc>:w<Return>
 map <Leader>w :w<Return>
 
@@ -60,9 +59,6 @@ autocmd FileType c syntax match cTodo /HACK/
 autocmd FileType cc syntax match cTodo /HACK/
 autocmd FileType cpp syntax match cTodo /HACK/
 autocmd FileType h syntax match cTodo /HACK/
-
-" because GCC extension ({ }) isnt valid c syntax
-let c_no_curly_error = 1
 
 " pressing \s begins a search and replace on the cursor's token
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
