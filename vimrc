@@ -20,6 +20,11 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
+" ruby stuff
+autocmd FileType ruby set shiftwidth=2
+autocmd FileType ruby set tabstop=2
+autocmd FileType ruby set softtabstop=2
+
 " extra keywords.
 autocmd FileType c syn keyword cType uint ulong ushort
 autocmd FileType h syn keyword cType uint ulong ushort

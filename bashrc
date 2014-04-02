@@ -135,6 +135,7 @@ pathmunge "/usr/local/gcc-4.7/bin"
 pathmunge "/usr/local/gdb-7.5.1/bin"
 pathmunge "/usr/local/gdb-7.5/bin"
 pathmunge "/usr/local/binutils-2.22/bin"
+pathmunge "/opt/chef/embedded/bin"
 
 export LD_LIBRARY_PATH="$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
 export C_INCLUDE_PATH="$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
