@@ -15,17 +15,27 @@ curl -Sso ~/.vim/autoload/pathogen.vim 'https://raw.github.com/tpope/vim-pathoge
 pushd ~/.vim/bundle &>/dev/null
 if [ ! -d ag ] ; then
     echo 'Installing ag ...'
-    git clone https://github.com/rking/ag.vim ag;
+    git clone https://github.com/rking/ag.vim ag
     echo ''
 fi
 if [ ! -d fugitive ] ; then
     echo 'Installing fugitive ...'
-    git clone https://github.com/tpope/vim-fugitive.git fugitive;
+    git clone https://github.com/tpope/vim-fugitive.git fugitive
     echo ''
 fi
 if [ ! -d ctrlp ] ; then
     echo 'Installing ctrlp ...'
-    git clone https://github.com/kien/ctrlp.vim.git ctrlp;
+    git clone https://github.com/kien/ctrlp.vim.git ctrlp
+    echo ''
+fi
+if [ ! -d vim-rspec ] ; then
+    echo 'Installing vim-rspec ...'
+    git clone https://github.com/thoughtbot/vim-rspec.git vim-rspec
+    echo ''
+fi
+if [ ! -d ruby-matchit ] ; then
+    echo 'Installing ruby-matchit ...'
+    git clone https://github.com/vim-scripts/ruby-matchit.git ruby-matchit
     echo ''
 fi
 popd &>/dev/null
