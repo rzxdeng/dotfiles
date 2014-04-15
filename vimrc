@@ -21,9 +21,9 @@ colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
 " ruby stuff
-autocmd FileType ruby set shiftwidth=2
-autocmd FileType ruby set tabstop=2
-autocmd FileType ruby set softtabstop=2
+autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2
 
 " extra keywords.
 autocmd FileType c syn keyword cType uint ulong ushort
