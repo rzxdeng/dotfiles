@@ -11,7 +11,7 @@ mkdir -p ~/.vim/autoload
 
 # first get pathogen, then each of the plugins we want
 echo 'Ensuring pathogen is up to date ...'
-curl -Sso ~/.vim/autoload/pathogen.vim 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
+curl -Sso ~/.vim/autoload/pathogen.vim 'https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim' || (echo "failed" && exit)
 pushd ~/.vim/bundle &>/dev/null
 if [ ! -d ag ] ; then
     echo 'Installing ag ...'
