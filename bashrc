@@ -34,6 +34,7 @@ alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_B
 # distcc
 if [ $(hostname) == 'celery' ] ; then
     export DISTCC_HOSTS="localhost/4 192.168.1.102/4"
+    export CCACHE_PREFIX="distcc"
 fi
 
 # use vimdiff for git diffs so they don't suck
