@@ -20,6 +20,9 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
+" indentation
+set cinoptions+=(0
+
 " ruby stuff
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2

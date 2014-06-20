@@ -33,7 +33,7 @@ alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_B
 
 # distcc
 if [ $(hostname) == 'celery' ] ; then
-    export DISTCC_HOSTS="localhost/4 192.168.1.102/4"
+    export DISTCC_HOSTS="localhost/4 192.168.1.102/4 192.168.1.110/4"
     export CCACHE_PREFIX="distcc"
 fi
 
@@ -96,9 +96,9 @@ alias lex2="ssh -p 22115 esmet@$tokulex"
 alias lex3="ssh -p 22120 esmet@$tokulex"
 alias lex4="ssh -p 22121 esmet@$tokulex"
 alias pointy="ssh -p 22148 esmet@$tokulex"
+alias mac="ssh -p 22118 esmet@$tokulex"
 alias mork="ssh -p 22150 esmet@$tokulex"
 alias mindy="ssh -p 22151 esmet@$tokulex"
-alias buk="ssh -p 2202 esmet@buk.fizzfaldt.org"
 alias munchkin="ssh -p 22150 esmet@munchkin.leifwalsh.com"
 
 # i'm used to this now
@@ -140,7 +140,11 @@ pathmunge "/opt/chef/embedded/bin"
 
 export LD_LIBRARY_PATH="$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
 export C_INCLUDE_PATH="$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
-export HISTIGNORE="ls"
+
+shopt -s histappend
+export HISTIGNORE="ls:cd ~:cd ..:exit:h:history"
+export HISTCONTROL="erasedups"
+export PROMPT_COMMAND="history -a" # so history flushes after each command
 
 function h {
     pattern=$1
