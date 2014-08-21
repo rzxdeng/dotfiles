@@ -26,7 +26,7 @@ fi
 alias grep="grep --color=auto"
 
 # cmake aliases
-cmake="cmake -D USE_BDB=OFF -D CMAKE_INSTALL_PREFIX=../release"
+cmake="cmake -D CMAKE_INSTALL_PREFIX=../release"
 alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
 alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
 alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
@@ -131,11 +131,14 @@ pathmunge "/usr/sbin"
 pathmunge "/usr/local/bin" 
 pathmunge "/usr/local/sbin" 
 pathmunge "$HOME/local/bin" 
-pathmunge "/usr/lib/ccache/bin"
 pathmunge "/usr/local/gcc-4.7/bin" 
 pathmunge "/usr/local/gdb-7.5.1/bin"
 pathmunge "/usr/local/gdb-7.5/bin"
 pathmunge "/usr/local/binutils-2.22/bin"
+if [ $(hostname) != "celery" ]; then
+    # ccache breaks gcc-4.9 LTO for some reason
+    pathmunge "/usr/lib/ccache"
+fi
 pathmunge "/opt/chef/embedded/bin"
 
 export LD_LIBRARY_PATH="$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"

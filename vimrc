@@ -96,3 +96,11 @@ if &swf
   set shm+=A
   au BufReadPre * call CheckSwap()
 endi
+
+" so a diff between two files does not force a 'press a key to continue prompt'
+if &diff
+  set cmdheight=2
+endi
+
+" ctrpl ignore
+let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt'
