@@ -230,3 +230,6 @@ function gbin {
     echo branch \($1\) has these commits and \($(parse_git_branch)\) does not 
     git log ..$1 --no-merges --format='%h | Author:%an | Date:%ad | %s' --date=local
 }
+function vimconflicts { 
+    vim $(git status | grep 'both modified:' | awk '{print $3}')
+}

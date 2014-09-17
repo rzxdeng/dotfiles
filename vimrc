@@ -62,6 +62,9 @@ map ; :
 " because :qa hurts my pinky
 map mm <Esc>:qa<Return>
 
+" since building mongod is common
+map MM <Esc>:make -C ../../../cmake_dbg mongod -j4<Return>
+
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
 autocmd FileType cc syntax match cTodo /HACK/
@@ -104,3 +107,7 @@ endi
 
 " ctrpl ignore
 let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt'
+
+" Assume SConstruct/SConscript files have python syntax
+autocmd BufNew,BufRead SConstruct setf python
+autocmd BufNew,BufRead SConscript setf python
