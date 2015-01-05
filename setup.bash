@@ -28,14 +28,4 @@ if [ ! -d ctrlp ] ; then
     git clone https://github.com/kien/ctrlp.vim.git ctrlp
     echo ''
 fi
-if [ ! -d vim-rspec ] ; then
-    echo 'Installing vim-rspec ...'
-    git clone https://github.com/thoughtbot/vim-rspec.git vim-rspec
-    echo ''
-fi
-if [ ! -d ruby-matchit ] ; then
-    echo 'Installing ruby-matchit ...'
-    git clone https://github.com/vim-scripts/ruby-matchit.git ruby-matchit
-    echo ''
-fi
 popd &>/dev/null
