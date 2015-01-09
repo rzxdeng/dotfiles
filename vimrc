@@ -1,13 +1,14 @@
 execute pathogen#infect()
 Helptags
 
-set softtabstop=4
-set expandtab
-set number
-set tabstop=8
-set shiftwidth=4
-set backspace=2
 syntax on
+
+set number
+set noexpandtab
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
+set backspace=2
 set pastetoggle=<F2>
 set smartindent
 set incsearch
@@ -72,7 +73,7 @@ autocmd FileType cpp syntax match cTodo /HACK/
 autocmd FileType h syntax match cTodo /HACK/
 
 " pressing \s begins a search and replace on the cursor's token
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>S :%s/\<<C-r><C-w>\>/
 
 " default menuing sucks
 set wildmenu
@@ -80,12 +81,12 @@ set wildmode=list:longest
 
 " fugitive mappings
 map <Leader>b :Gblame<Return>
-map <Leader>c :Gcommit<Return>
-map <Leader>d :Gdiff<Return>
+"map <Leader>c :Gcommit<Return>
+"map <Leader>d :Gdiff<Return>
 
 " ag mappings
-map <Leader>f :Ag <C-r><C-w><Return>
-map <Leader>g :Ag 
+map <Leader>F :Ag <C-r><C-w><Return>
+map <Leader>G :Ag 
 
 " so vim stops complaining when opening a file that another vim has opened.
 " I know vim, just go read only. Obviously.
@@ -111,3 +112,51 @@ let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt'
 " Assume SConstruct/SConscript files have python syntax
 autocmd BufNew,BufRead SConstruct setf python
 autocmd BufNew,BufRead SConscript setf python
+
+" This tests to see if vim was configured with the '--enable-cscope' option
+" when it was compiled.  If it wasn't, time to recompile vim... 
+if has("cscope")
+
+    """"""""""""" Standard cscope/vim boilerplate
+
+    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+    set cscopetag
+
+    " check cscope for definition of a symbol before checking ctags: set to 1
+    " if you want the reverse search order.
+    set csto=0
+
+    " add any cscope database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out  
+    " else add the database pointed to by environment variable 
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+
+    " show msg when any other cscope db added
+    set cscopeverbose  
+
+
+    """"""""""""" My cscope/vim key mappings
+    "
+    " The following maps all invoke one of the following cscope search types:
+    "
+    "   's'   symbol: find all references to the token under cursor
+    "   'g'   global: find global definition(s) of the token under cursor
+    "   'c'   calls:  find all calls to the function name under cursor
+    "   't'   text:   find all instances of the text under cursor
+    "   'e'   egrep:  egrep search for the word under cursor
+    "   'f'   file:   open the filename under cursor
+    "   'i'   includes: find files that include the filename under cursor
+    "   'd'   called: find functions that function under cursor calls
+    "
+    map <Leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>      
+    map <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>      
+    map <Leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>      
+    map <Leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>      
+    map <Leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>      
+    map <Leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>      
+    map <Leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    map <Leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>      
+endif
