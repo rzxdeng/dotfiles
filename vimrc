@@ -107,7 +107,7 @@ if &diff
 endi
 
 " ctrpl ignore
-let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt'
+let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt\|autom4te.cache'
 
 " Assume SConstruct/SConscript files have python syntax
 autocmd BufNew,BufRead SConstruct setf python
@@ -128,7 +128,9 @@ if has("cscope")
 
     " add any cscope database in current directory
     if filereadable("cscope.out")
-        cs add cscope.out  
+	set nocscopeverbose
+        cs add cscope.out
+	set cscopeverbose
     " else add the database pointed to by environment variable 
     elseif $CSCOPE_DB != ""
         cs add $CSCOPE_DB
