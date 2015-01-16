@@ -63,8 +63,8 @@ map ; :
 " because :qa hurts my pinky
 map mm <Esc>:qa<Return>
 
-" since building mongod is common
-map MM <Esc>:make -C ../../../cmake_dbg mongod -j4<Return>
+" building
+map MM <Esc>:make -C dbg -j12<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
@@ -72,17 +72,15 @@ autocmd FileType cc syntax match cTodo /HACK/
 autocmd FileType cpp syntax match cTodo /HACK/
 autocmd FileType h syntax match cTodo /HACK/
 
-" pressing \s begins a search and replace on the cursor's token
+" begins a search and replace on the token under the cursor
 nnoremap <Leader>S :%s/\<<C-r><C-w>\>/
 
 " default menuing sucks
 set wildmenu
 set wildmode=list:longest
 
-" fugitive mappings
+" fugitive mapping for blame
 map <Leader>b :Gblame<Return>
-"map <Leader>c :Gcommit<Return>
-"map <Leader>d :Gdiff<Return>
 
 " ag mappings
 map <Leader>F :Ag <C-r><C-w><Return>
@@ -107,11 +105,7 @@ if &diff
 endi
 
 " ctrpl ignore
-let g:ctrlp_custom_ignore = 'build\|dbg\|cmake_build\|cmake_dbg\|opt\|autom4te.cache'
-
-" Assume SConstruct/SConscript files have python syntax
-autocmd BufNew,BufRead SConstruct setf python
-autocmd BufNew,BufRead SConscript setf python
+let g:ctrlp_custom_ignore = 'opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt'
 
 " This tests to see if vim was configured with the '--enable-cscope' option
 " when it was compiled.  If it wasn't, time to recompile vim... 
@@ -136,10 +130,6 @@ if has("cscope")
         cs add $CSCOPE_DB
     endif
 
-    " show msg when any other cscope db added
-    set cscopeverbose  
-
-
     """"""""""""" My cscope/vim key mappings
     "
     " The following maps all invoke one of the following cscope search types:
@@ -162,3 +152,26 @@ if has("cscope")
     map <Leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
     map <Leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>      
 endif
+
+" From vim.wikia.com
+"
+" In the [below] mapping, I use 'find' to collect the C/C++ source code files
+" and (re)create the cscope database; then 'kill -1' to kill all cscope
+" database connections and finally, the newly created 'cscope.out' database is
+" added by 'cs add cscope.out'.
+"
+" There are two limitations in this key mapping:
+"
+" the current directory should be the root path of the project
+" I don't know how to get the current cscope data connection number, so that I
+" use 'kill -1' to kill 'all' cscope database connections, since actually I
+" always only create one connections in one Vim instance. It is not practical
+" if you are using multiple data connections in one Vim instance.
+func ResetCScopeDB()
+    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files &&
+        \cscope -q -k -b -i cscope.files -f cscope.out && 
+	\echo Built cscope database from $(cat cscope.files | wc -l) files
+    :cs kill -1
+    :cs add cscope.out
+endfunc
+map HH :call ResetCScopeDB()<Return>

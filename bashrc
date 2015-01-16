@@ -4,9 +4,6 @@ PS1="[\u@\h \W] \$ "
 # vi bindings are great everywhere except the command line
 set -o emacs
 
-# disable screen saving on blue
-[ $(hostname) == "blue" ] && xset s off &>/dev/null
-
 # this bundle of joy is for portable LS colors.
 # I like yellow dictories because bold blue is
 # impossible to see on an osx terminal
@@ -25,27 +22,14 @@ fi
 
 alias grep="grep --color=auto"
 
-# cmake aliases
-cmake="cmake -D CMAKE_INSTALL_PREFIX=../release"
-alias cmakedbg="$cmake -D CMAKE_BUILD_TYPE=Debug .."
-alias cmakecov="$cmake -D CMAKE_BUILD_TYPE=Debug -D USE_GCOV=ON .."
-alias cmakeopt="$cmake -D TOKU_DEBUG_PARANOID=OFF -D USE_VALGRIND=OFF -D CMAKE_BUILD_TYPE=Release .."
-
-# distcc
-if [ $(hostname) == 'celery' ] ; then
-    export DISTCC_HOSTS="localhost/4 192.168.1.102/4 192.168.1.110/4"
-    export CCACHE_PREFIX="distcc"
-fi
-
 # use vimdiff for git diffs so they don't suck
 alias gitdiff='git difftool --tool=vimdiff'
 
+alias io="iostat -xk 1"
 alias vi="vim"
 alias emacs="emacs -nw"
 alias jmux="tmux -S /tmp/john.tmux"
-
-# convenience
-alias io="iostat -xk 1"
+export EDITOR=vim
 
 # interactive for safety
 alias rm="rm -i"
@@ -58,13 +42,6 @@ unalias reset &>/dev/null
 alias realreset="$(which reset)"
 alias reset="source $HOME/.bashrc && clear"
 
-PREFERRED_EDITORS="vim vi nano pico"
-for editor in $PREFERRED_EDITORS ; do
-    if command -v "$editor" &> /dev/null ; then
-        export EDITOR="$editor"
-        break
-    fi
-done
 
 # stolen from /etc/profile
 function pathmunge {
@@ -95,12 +72,4 @@ export PROMPT_COMMAND="history -a" # so history flushes after each command
 function h {
     pattern=$1
     history | grep $pattern
-}
-
-function tags {
-    ctags */*.{cpp,h} *.{cpp,h}
-}
-
-function vimconflicts { 
-    vim $(git status | grep 'both modified:' | awk '{print $3}')
 }
