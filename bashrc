@@ -42,6 +42,8 @@ unalias reset &>/dev/null
 alias realreset="$(which reset)"
 alias reset="source $HOME/.bashrc && clear"
 
+# force gcc44 when using cmake
+alias cmake="CC=gcc44 CXX=g++44 cmake"
 
 # stolen from /etc/profile
 function pathmunge {
