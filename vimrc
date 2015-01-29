@@ -175,3 +175,9 @@ func ResetCScopeDB()
     :cs add cscope.out
 endfunc
 map HH :call ResetCScopeDB()<Return>
+
+" for macvim
+if has("gui_macvim")
+    set guifont=Anonymous\ Pro:h20
+    map MM
+endif
