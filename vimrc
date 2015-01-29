@@ -179,5 +179,4 @@ map HH :call ResetCScopeDB()<Return>
 " for macvim
 if has("gui_macvim")
     set guifont=Anonymous\ Pro:h20
-    map MM
 endif

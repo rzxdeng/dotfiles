@@ -28,9 +28,4 @@ if [ ! -d ctrlp ] ; then
     git clone https://github.com/kien/ctrlp.vim.git ctrlp
     echo ''
 fi
-if [ ! -d rmvim ] ; then
-    echo 'Installing rmvim ...'
-    git clone https://github.com/wannesm/rmvim.vim.git rmvim
-    echo ''
-fi
 popd &>/dev/null
