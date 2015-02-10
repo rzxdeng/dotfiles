@@ -64,7 +64,7 @@ map ; :
 map mm <Esc>:qa<Return>
 
 " building
-map MM <Esc>:make -C dbg -j12<Return>
+map MM <Esc>:make -C dbg -j<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
