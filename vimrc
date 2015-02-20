@@ -21,8 +21,8 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
-" indentation
-set cinoptions+=(0
+" 4 spaces to the prevailing indentation when continuing a line
+set cinoptions=+4,(4
 
 " ruby stuff
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2
