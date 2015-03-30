@@ -42,9 +42,6 @@ unalias reset &>/dev/null
 alias realreset="$(which reset)"
 alias reset="source $HOME/.bashrc && clear"
 
-# force gcc44 when using cmake
-alias cmake="CC=gcc44 CXX=g++44 cmake"
-
 # stolen from /etc/profile
 function pathmunge {
     if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
@@ -63,7 +60,7 @@ pathmunge "/usr/local/bin"
 pathmunge "/usr/local/sbin" 
 pathmunge "$HOME/local/bin" 
 
-export LD_LIBRARY_PATH="/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:/usr/local/lib64:$LD_LIRARY_PATH"
+export LD_LIBRARY_PATH="/usr/lib64:/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
 export C_INCLUDE_PATH="/usr/local/adnxs/include:$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
 
 shopt -s histappend

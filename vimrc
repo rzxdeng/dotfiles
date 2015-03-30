@@ -29,6 +29,12 @@ autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2
 " 4 spaces to the prevailing indentation when continuing a line
 set cinoptions=+4,(4
 
+" so Makefiles work with expandtab
+autocmd FileType make setlocal noexpandtab
+
+" cmake formatting
+autocmd FileType cmake setlocal shiftwidth=4 tabstop=4 expandtab
+
 " extra keywords.
 autocmd FileType c syn keyword cType uint ulong ushort
 autocmd FileType h syn keyword cType uint ulong ushort
@@ -51,9 +57,6 @@ imap jj <Esc>
 imap <Leader>w <Esc>:w<Return>
 map <Leader>w :w<Return>
 
-" so Makefiles work with expandtab
-autocmd FileType make setlocal noexpandtab
-
 " because I hate q:
 map q: <Esc>
 
@@ -64,7 +67,7 @@ map ; :
 map mm <Esc>:qa<Return>
 
 " building
-map MM <Esc>:make -C build -j<Return>
+map MM <Esc>:make -C build -j12<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
