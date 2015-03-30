@@ -63,8 +63,8 @@ pathmunge "/usr/local/bin"
 pathmunge "/usr/local/sbin" 
 pathmunge "$HOME/local/bin" 
 
-export LD_LIBRARY_PATH="$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
-export C_INCLUDE_PATH="$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
+export LD_LIBRARY_PATH="/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:/usr/local/lib64:$LD_LIRARY_PATH"
+export C_INCLUDE_PATH="/usr/local/adnxs/include:$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
 
 shopt -s histappend
 export HISTIGNORE="ls:cd ~:cd ..:exit:h:history"

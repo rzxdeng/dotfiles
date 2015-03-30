@@ -4,11 +4,6 @@ Helptags
 syntax on
 
 set number
-set noexpandtab
-set tabstop=8
-set softtabstop=8
-set shiftwidth=8
-set backspace=2
 set pastetoggle=<F2>
 set smartindent
 set incsearch
@@ -21,13 +16,18 @@ filetype plugin on
 colorscheme desert
 cmap w!! w !sudo tee >/dev/null %
 
-" 4 spaces to the prevailing indentation when continuing a line
-set cinoptions=+4,(4
-
-" ruby stuff
+autocmd FileType c set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType cc set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType cpp set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
+autocmd FileType python set sw=4 ts=4 sts=4 expandtab
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2
+
+" 4 spaces to the prevailing indentation when continuing a line
+set cinoptions=+4,(4
 
 " extra keywords.
 autocmd FileType c syn keyword cType uint ulong ushort
@@ -64,7 +64,7 @@ map ; :
 map mm <Esc>:qa<Return>
 
 " building
-map MM <Esc>:make -C dbg -j<Return>
+map MM <Esc>:make -C build -j<Return>
 
 " so I can hack things
 autocmd FileType c syntax match cTodo /HACK/
