@@ -22,6 +22,7 @@ autocmd FileType cpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
 autocmd FileType python set sw=4 ts=4 sts=4 expandtab
+autocmd FileType lua set sw=4 ts=4 sts=4 expandtab
 autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2
