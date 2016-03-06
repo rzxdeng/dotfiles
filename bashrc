@@ -1,5 +1,17 @@
 source /etc/profile
-PS1="[\u@\h \W] \$ "
+function gcb() {
+        current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [ $? -eq 0 ]
+        then
+                echo $current_branch
+        else
+                echo ""
+        fi
+}
+export PS1='[\e[0;33m\e[m\e[0;32m\w\e[m] \e[0;33m[$(gcb)]\e[m $ '
+
+# disable the most irritating terminal emulation feature ever known
+stty -ixon
 
 # vi bindings are great everywhere except the command line
 set -o emacs
@@ -19,6 +31,9 @@ else
     alias ls="ls"
     echo "Problem setting ls colors, uname = $unamestr"
 fi
+
+# ag rage
+alias ag="ag -if"
 
 alias grep="grep --color=auto"
 
@@ -60,7 +75,7 @@ pathmunge "/usr/local/bin"
 pathmunge "/usr/local/sbin" 
 pathmunge "$HOME/local/bin" 
 
-export LD_LIBRARY_PATH="/usr/lib64:/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
+export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib64:/usr/lib64:/usr/local/adnxs/lib:$HOME/local/lib:/usr/local/lib:$LD_LIRARY_PATH"
 export C_INCLUDE_PATH="/usr/local/adnxs/include:$HOME/local/include:/usr/local/include:$C_INCLUDE_PATH"
 
 shopt -s histappend
@@ -72,3 +87,9 @@ function h {
     pattern=$1
     history | grep $pattern
 }
+
+# ugh
+if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
