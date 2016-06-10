@@ -8,7 +8,7 @@ function gcb() {
                 echo ""
         fi
 }
-export PS1='[\e[0;33m\e[m\e[0;32m\w\e[m] \e[0;33m[$(gcb)]\e[m $ '
+export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)]\[\e[m\] $ '
 
 # disable the most irritating terminal emulation feature ever known
 stty -ixon
