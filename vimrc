@@ -1,193 +1,103 @@
+" Never hit escape again!
+imap jk <Esc>
+
+" remove any trailing whitespace that is in the file
+" autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" in many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" " We can use different key mappings for easy navigation between splits to save a keystroke.
+" " So instead of ctrl-w then j, it’s just ctrl-j:
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
+" Open new split panes to right and bottom, which feels more natural than Vim’s default:
+set splitbelow
+set splitright
+
+set cursorline
+set t_Co=256	  " Use 256 colors!
+set wildmenu      " tab completion
+set wildmode=list:longest,full " tab completion
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set shiftwidth=4  " number of spaces to use for autoindenting
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set showmatch     " set show matching parenthesis
+set ignorecase    " ignore case when searching
+set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
+set hlsearch      " highlight search terms
+set incsearch     " show search matches as you type
+set history=100   " keep 50 lines of command line history
+set ruler         " show the cursor position all the time
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set nowrap        " turn off line wrapping
+set number	  " line numbers
+set noswapfile
+" set colorcolumn=80 " Line length of 80
+
+" pathogen
 execute pathogen#infect()
-Helptags
-
 syntax on
+filetype plugin indent on
 
-set number
-set pastetoggle=<F2>
-set smartindent
-set incsearch
-set ignorecase
-set smartcase
-set autoindent
-set hlsearch
-filetype indent on
-filetype plugin on
-colorscheme desert
-cmap w!! w !sudo tee >/dev/null %
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans=0
+colorscheme solarized
 
-autocmd FileType c set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType cc set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType cpp set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType h set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType hpp set sw=8 ts=8 sts=8 noexpandtab
-autocmd FileType python set sw=4 ts=4 sts=4 expandtab
-autocmd FileType java set sw=4 ts=4 sts=4 expandtab
-autocmd FileType javascript set shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
-autocmd FileType jade set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType ruby set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNew,BufEnter *.erb set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNew,BufEnter *.h set ft=c
+" Clear highlighting on escape in normal mode
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
 
-" 4 spaces to the prevailing indentation when continuing a line
-set cinoptions=+4,(4
+" Search for visually selected text
+vnoremap // y/<C-R>"<CR>
 
-" so Makefiles work with expandtab
-autocmd FileType make setlocal noexpandtab
+" fuzzy file search
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+" airline
+set laststatus=2
+let g:airline_enable_branch=1
 
-" cmake formatting
-autocmd FileType cmake setlocal shiftwidth=4 tabstop=4 expandtab
+" syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_enable_signs= 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
-" extra keywords.
-autocmd FileType c syn keyword cType uint ulong ushort
-autocmd FileType h syn keyword cType uint ulong ushort
-autocmd FileType cc syn keyword cType uint ulong ushort
-autocmd FileType cpp syn keyword cType uint ulong ushort
-autocmd FileType hpp syn keyword cType uint ulong ushort
-autocmd FileType c syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
-autocmd FileType h syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
-autocmd FileType cc syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
-autocmd FileType cpp syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
-autocmd FileType hpp syn keyword cType u_int8_t u_int16_t u_int32_t u_int64_t
+" Got them pretty symbols
+let g:syntastic_style_error_symbol = '✠'
+let g:syntastic_style_warning_symbol = '≈'
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 
-" .wiki extention pages screw up and put <feff> byte-order without this
-au BufWritePre * setlocal nobomb
+" Checkers
+" let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_checkers=[]
 
-" it's an addiction now
-imap jj <Esc>
-
-" bread and butter
-imap <Leader>w <Esc>:w<Return>
-map <Leader>w :w<Return>
-
-" because I hate q:
-map q: <Esc>
-
-" fast commands
-map ; :
-
-" because :qa hurts my pinky
-map mm <Esc>:qa<Return>
-
-" building
-map MM <Esc>:make -C build -j12<Return>
-
-" so I can hack things
-autocmd FileType c syntax match cTodo /HACK/
-autocmd FileType cc syntax match cTodo /HACK/
-autocmd FileType cpp syntax match cTodo /HACK/
-autocmd FileType h syntax match cTodo /HACK/
-
-" begins a search and replace on the token under the cursor
-nnoremap <Leader>S :%s/\<<C-r><C-w>\>/
-
-" default menuing sucks
-set wildmenu
-set wildmode=list:longest
-
-" fugitive mapping for blame
-map <Leader>b :Gblame<Return>
-
-" ag mappings
-map <Leader>F :Ag -f  <C-r><C-w><Return>
-map <Leader>G :Ag -f 
-
-" so vim stops complaining when opening a file that another vim has opened.
-" I know vim, just go read only. Obviously.
-func CheckSwap()
-  swapname
-  if v:statusmsg =~ '\.sw[^p]$'
-    set ro
-  endif
-endfunc
-if &swf
-  set shm+=A
-  au BufReadPre * call CheckSwap()
-endi
-
-" so a diff between two files does not force a 'press a key to continue prompt'
-if &diff
-  set cmdheight=2
-endi
-
-" ctrpl ignore
-let g:ctrlp_custom_ignore = 'opt\|dbg\|build\|cmake_build\|cmake_dbg\|cmake_opt\|node_modules'
-let g:ctrlp_max_files = 0
-let g:ctrlp_follow_symlinks = 2
-
-
-" This tests to see if vim was configured with the '--enable-cscope' option
-" when it was compiled.  If it wasn't, time to recompile vim... 
-if has("cscope")
-
-    """"""""""""" Standard cscope/vim boilerplate
-
-    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-    set cscopetag
-
-    " check cscope for definition of a symbol before checking ctags: set to 1
-    " if you want the reverse search order.
-    set csto=0
-
-    " add any cscope database in current directory
-    if filereadable("cscope.out")
-	set nocscopeverbose
-        cs add cscope.out
-	set cscopeverbose
-    " else add the database pointed to by environment variable 
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-
-    """"""""""""" My cscope/vim key mappings
-    "
-    " The following maps all invoke one of the following cscope search types:
-    "
-    "   's'   symbol: find all references to the token under cursor
-    "   'g'   global: find global definition(s) of the token under cursor
-    "   'c'   calls:  find all calls to the function name under cursor
-    "   't'   text:   find all instances of the text under cursor
-    "   'e'   egrep:  egrep search for the word under cursor
-    "   'f'   file:   open the filename under cursor
-    "   'i'   includes: find files that include the filename under cursor
-    "   'd'   called: find functions that function under cursor calls
-    "
-    map <Leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>      
-    map <Leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>      
-    map <Leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>      
-    map <Leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>      
-    map <Leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>      
-    map <Leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>      
-    map <Leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    map <Leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>      
-endif
-
-" From vim.wikia.com
-"
-" In the [below] mapping, I use 'find' to collect the C/C++ source code files
-" and (re)create the cscope database; then 'kill -1' to kill all cscope
-" database connections and finally, the newly created 'cscope.out' database is
-" added by 'cs add cscope.out'.
-"
-" There are two limitations in this key mapping:
-"
-" the current directory should be the root path of the project
-" I don't know how to get the current cscope data connection number, so that I
-" use 'kill -1' to kill 'all' cscope database connections, since actually I
-" always only create one connections in one Vim instance. It is not practical
-" if you are using multiple data connections in one Vim instance.
-func ResetCScopeDB()
-    :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > .cscope.files &&
-        \cscope -q -k -b -i .cscope.files -f .cscope.out && 
-	\echo Built cscope database from $(cat .cscope.files | wc -l) files
-    :cs kill -1
-    :cs add .cscope.out
-endfunc
-map HH :call ResetCScopeDB()<Return>
-
-" for macvim
-if has("gui_macvim")
-    set guifont=Anonymous\ Pro:h20
-endif
+" adserver style guide
+autocmd FileType c,cpp,make,automake setlocal cinoptions=+4,(4:0 cindent noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
