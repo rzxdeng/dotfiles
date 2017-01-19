@@ -1,0 +1,19 @@
+[user]
+	name = Richard Deng
+	email = rdeng@appnexus.com
+[color]
+	ui = auto
+
+[alias]
+	lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+        st = status -s
+	co = checkout
+	br = branch
+	ff = pull --ff-only
+	diffno = diff --name-only
+	pullff = pull --ff-only
+
+[push]
+	default = current
+[core]
+	autoctrlf = input
