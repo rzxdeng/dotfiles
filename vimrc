@@ -50,7 +50,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set nowrap        " turn off line wrapping
 set number	  " line numbers
 set noswapfile
-" set colorcolumn=80 " Line length of 80
+set colorcolumn=80 " Line length of 80
 
 " pathogen
 execute pathogen#infect()
@@ -69,6 +69,9 @@ nnoremap <esc>^[ <esc>^[
 
 " Search for visually selected text
 vnoremap // y/<C-R>"<CR>
+
+" Map : to ;
+nmap ; :
 
 " fuzzy file search
 set runtimepath^=~/.vim/bundle/ctrlp.vim
