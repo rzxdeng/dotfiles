@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=".vimrc .bashrc .tmux.conf .gitconfig .bash_profile .inputrc .vim .ssh"
+files=".vimrc .bashrc .tmux.conf .gitconfig .bash_profile .inputrc .vim"
 for f in $files ; do
     fullpath="$HOME/$f"
     rm -f $fullpath
