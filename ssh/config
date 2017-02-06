@@ -1,0 +1,23 @@
+Protocol 2,1
+ForwardAgent yes
+KeepAlive yes
+StrictHostKeyChecking no
+
+Host local
+	HostName 127.0.0.1
+	Port 8022
+
+Host adnxscmdb
+	hostname 02.adnxscmdb-sand.nym2.appnexus.com
+
+Host kovert
+	hostname 02.kovert-sand.nym2.appnexus.net
+
+Host actools
+	hostname 01.acct-tools.nym2.appnexus.net
+
+Host jump
+	hostname jump.adnxs.net
+
+Host rtpdev
+	hostname 428.bm-rdeng.user.nym2.adnexus.net
