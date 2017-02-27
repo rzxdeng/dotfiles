@@ -47,3 +47,8 @@ function jazz() {
 }
 
 alias trim='cut -b -$(tput cols)'
+
+# Initialize the 'hop' script                                                                                                                                                                                                             
+source /usr/hop/hop.bash                                                       
+# Define an entry point for the lua script version of hop                       
+alias hop-lua-script="LUA_PATH=/usr/hop/json.lua /usr/hop/hop.lua"

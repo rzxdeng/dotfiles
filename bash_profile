@@ -129,6 +129,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias ls='ls --color=auto'
 alias ll='ls -hal'
 alias rm='rm -i'
 alias vi="vim"
