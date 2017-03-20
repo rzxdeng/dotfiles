@@ -137,6 +137,7 @@ alias gof='go_first'
 alias htmldiff='pygmentize -l diff -O full=true -f html'
 alias tmux='tmux -2'                    # force tmux to support 256 colors
 alias trimw="grep -rli '[[:blank:]]$'"  # show all files with trailing whitespace in a dir
+alias ho="hop"
 #### Exports ####
 
 # Exposing editor for things
