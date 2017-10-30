@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/rdeng/.go/src/github.com/opentracing-contrib/examples/go'
+let g:netrw_dirhist_2='/home/rdeng/.go/src/github.com/uber/jaeger-client-go/transport'
+let g:netrw_dirhist_3='/home/rdeng/.go/src/github.com/uber/jaeger/examples/hotrod/pkg/tracing'
+let g:netrw_dirhist_4='/home/rdeng/projects/realtime-platform'
+let g:netrw_dirhist_5='/home/rdeng/projects/realtime-platform/app_impbus/.submodules/rtp-common/common/batches'
+let g:netrw_dirhist_6='/home/rdeng/projects/realtime-platform/internal-pkg_libbatches/include'
+let g:netrw_dirhist_7='/home/rdeng/projects/realtime-platform/app-config_batchesv2/os_configs'
+let g:netrw_dirhist_8='/home/rdeng/projects/realtime-platform/internal-pkg_libbatches/go_source/src/appnexus.com/batches'

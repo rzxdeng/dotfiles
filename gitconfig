@@ -12,6 +12,12 @@
 	ff = pull --ff-only
 	diffno = diff --name-only
 	pullff = pull --ff-only
+	aa = add --all :/
+	cane = commit --amend --no-edit
+	po = push origin HEAD
+	pof = push origin HEAD -f
+	l = log --decorate
+	sh = show HEAD
 
 [push]
 	default = current

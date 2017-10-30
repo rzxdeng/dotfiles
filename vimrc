@@ -8,6 +8,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,7 +73,7 @@ set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
 set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
+" set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set history=100   " keep 50 lines of command line history
@@ -83,7 +84,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set nowrap        " turn off line wrapping
 set number	  " line numbers
 set noswapfile
-set colorcolumn=80 " Line length of 80
+set colorcolumn=100 " Line length of 80
 
 " pathogen
 execute pathogen#infect()
@@ -104,10 +105,13 @@ nnoremap <esc>^[ <esc>^[
 vnoremap // y/<C-R>"<CR>
 
 " substitute text under cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>s :.,$s/\<<C-r><C-w>\>/
 
 " Map : to ;
 nmap ; :
+
+" zz to ctrl-c
+nnoremap <C-c> zz
 
 " fuzzy file search
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -136,13 +140,16 @@ let g:syntastic_warning_symbol = '⚠'
 
 " Checkers
 " let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_checkers=[]
+" let g:syntastic_python_checkers=[]
+" let g:syntastic_go_checkers = ['go', 'golint', 'govet']
+let g:syntastic_go_checkers = ['golint', 'govet']
 
-" YouCompleteMe
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-nnoremap <leader>d :YcmCompleter GoTo<CR>
+" vim-go
+let g:go_fmt_command = 'gofmt'
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_autosave = 1
+let g:go_def_mode = 'godef'
+nnoremap <leader>d :GoDef<CR>
 
 " Ag
 nnoremap <Leader>f :Ag! -f  <C-r><C-w><Return>
