@@ -1,5 +1,33 @@
+set nocompatible              " be iMproved, required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+call plug#begin()
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+call plug#end()
+
 " Never hit escape again!
 imap jk <Esc>
+
+" Ctrl+n to open Nerdtree
+map <C-n> :NERDTreeToggle<CR>
+" Open Nerdtree if no files are specified, close vim if Nerdtree is last window open
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " remove any trailing whitespace that is in the file
 " autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -23,6 +51,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Resizing vim splits more easily
+nnoremap <silent> + :exe "resize +2"<CR>
+nnoremap <silent> - :exe "resize -2"<CR>
+nnoremap <silent> > :exe "vertical resize +2"<CR>
+nnoremap <silent> < :exe "vertical resize -2"<CR>
 
 " Open new split panes to right and bottom, which feels more natural than Vim’s default:
 set splitbelow
@@ -70,6 +103,9 @@ nnoremap <esc>^[ <esc>^[
 " Search for visually selected text
 vnoremap // y/<C-R>"<CR>
 
+" substitute text under cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+
 " Map : to ;
 nmap ; :
 
@@ -101,6 +137,16 @@ let g:syntastic_warning_symbol = '⚠'
 " Checkers
 " let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_checkers=[]
+
+" YouCompleteMe
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+nnoremap <leader>d :YcmCompleter GoTo<CR>
+
+" Ag
+nnoremap <Leader>f :Ag! -f  <C-r><C-w><Return>
+nnoremap <Leader>g :Ag! -f
 
 " adserver style guide
 autocmd FileType c,cpp,make,automake setlocal cinoptions=+4,(4:0 cindent noexpandtab shiftwidth=8 tabstop=8 softtabstop=8

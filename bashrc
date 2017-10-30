@@ -48,7 +48,12 @@ function jazz() {
 
 alias trim='cut -b -$(tput cols)'
 
-# Initialize the 'hop' script                                                                                                                                                                                                             
-source /usr/hop/hop.bash                                                       
-# Define an entry point for the lua script version of hop                       
-alias hop-lua-script="LUA_PATH=/usr/hop/json.lua /usr/hop/hop.lua"
+. /home/rdeng/bin/z
+alias ho='z'
+
+export PATH=$PATH:/usr/lib/go-1.7/bin
+export GOPATH=/home/rdeng/.go=/home/rdeng/projects/realtime-platform/internal-pkg_libbatches/go_source
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -48,10 +48,29 @@ function git_prompt() {
 
     echo -ne "$OUT"
 }
+# 
+export PS1='\[\033[0;34m\]\h \w $(git_prompt)\n$ \[\033[m\]'
+# 
+# # export PS1="[\H] \w $ "
 
-export PS1='\[\033[0;34m\][\h] \w $(git_prompt)$ \[\033[m\]'
+jobscount() {
+  local stopped=$(jobs -sp | wc -l)
+  local running=$(jobs -rp | wc -l)
+  ((running+stopped)) && echo -n "${running}r/${stopped}s "
+}
 
-# export PS1="[\H] \w $ "
+source /home/rdeng/.git-prompt.sh
+export GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWUPSTREAM="auto"
+
+
+# PS1='\h[\W]\$ '
+# SIMPLE='\h \w $(jobscount)$(__git_ps1 "(%s) ")\n\$ '
+# PS1='\[\033[32m\]\h\[\033[01;34m\] \w\[\033[00;32m\]$(jobscount)$(__git_ps1 " (%s)")\[\033[32m\]\n\$\[\033[0m\] '
+# NOFUNCS='\[\033[32m\]\h\[\033[01;34m\] \w\[\033[0;32m\]\n\$\[\033[0m\] '
+# PS2='more> '
 
 # use go on the first instance in its list
 function go_first() {
@@ -137,7 +156,6 @@ alias gof='go_first'
 alias htmldiff='pygmentize -l diff -O full=true -f html'
 alias tmux='tmux -2'                    # force tmux to support 256 colors
 alias trimw="grep -rli '[[:blank:]]$'"  # show all files with trailing whitespace in a dir
-alias ho="hop"
 #### Exports ####
 
 # Exposing editor for things
