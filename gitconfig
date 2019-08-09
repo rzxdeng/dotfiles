@@ -16,7 +16,7 @@
 	cane = commit --amend --no-edit
 	po = push origin HEAD
 	pof = push origin HEAD -f
-	l = log --decorate
+	l = log --decorate --graph
 	sh = show HEAD
 
 [push]

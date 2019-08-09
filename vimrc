@@ -142,7 +142,7 @@ let g:syntastic_warning_symbol = '⚠'
 " let g:syntastic_python_checkers=['flake8']
 " let g:syntastic_python_checkers=[]
 " let g:syntastic_go_checkers = ['go', 'golint', 'govet']
-let g:syntastic_go_checkers = ['golint', 'govet']
+" let g:syntastic_go_checkers = ['golint', 'govet']
 
 " vim-go
 let g:go_fmt_command = 'gofmt'

@@ -27,6 +27,26 @@ function utime() {
     fi
 }
 
+alias grep='grep --line-buffered'
+
+function greph() {
+    if [[ -n "$1" ]]; then
+    	grep --line-buffered --color "$1\|$"
+    fi
+}
+
+function grepv() {
+    if [[ -n "$1" ]]; then
+    	grep --line-buffered -v $1
+    fi
+}
+
+function gme() {
+    if [[ -n "$1" ]]; then
+    	grep $1 /var/log/adnexus/master.error | less -S
+    fi
+}
+
 igo ()
 {
     go "$@" | xargs echo | sed 's/ /\\\\\|/g' | xargs -I "{}" grep "{}" /etc/hosts
@@ -68,3 +88,5 @@ export AN_API_ENDPOINT=api.appnexus.com
 source ~/apisetup
 
 [[ -s "/home/rdeng/.gvm/scripts/gvm" ]] && source "/home/rdeng/.gvm/scripts/gvm"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
