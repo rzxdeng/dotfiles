@@ -4,6 +4,7 @@ fi
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/bin
+PATH=$PATH:/Users/rdeng/apache-maven-3.6.3/bin
 export PATH
 
 COLOR_RED="\001\033[0;31m\002"
@@ -51,8 +52,6 @@ function git_prompt() {
 
 export PS1='\[\033[0;34m\][\h] \w $(git_prompt)$ \[\033[m\]'
 
-# export PS1="[\H] \w $ "
-
 # use go on the first instance in its list
 function go_first() {
     HOST=$(go $@ | head -n1)
@@ -87,14 +86,6 @@ extract () {
     fi
 }
 
-# print specific column
-function fawk {
-    first="awk '{print "
-    last="}'"
-    cmd="${first}\$${1}${last}"
-    eval $cmd
-}
-
 # Make things lowercase
 lowercase(){
     echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
@@ -109,27 +100,13 @@ else
     OS="mac"
 fi
 
-# Ghetto Code Review Function
-function gcr() {
-    local context=20
-    local opts=""
-    if [ "$1" == "-c" ]; then
-        opts="--cached"
-        shift
-    fi
-    if [ -n "$1" ]; then
-        context=$1
-    fi
-    git diff $opts -w -U$1 | htmldiff | pastie | tee >(/usr/bin/pbcopy)
-}
-
 #### Aliases ####
 
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias ll='ls -hal'
 alias rm='rm -i'
 alias vi="vim"
